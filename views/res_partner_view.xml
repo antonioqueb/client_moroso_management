@@ -45,4 +45,16 @@
             </tree>
         </field>
     </record>
+
+    <!-- Vista de búsqueda con filtro predeterminado para contactos morosos -->
+    <record id="view_partner_search_morosos" model="ir.ui.view">
+        <field name="name">res.partner.search.morosos</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Filtro predeterminado que muestra solo contactos morosos -->
+                <filter string="Morosos" name="morosos" domain="[('moroso','=',True)]" default="1"/>
+            </search>
+        </field>
+    </record>
 </odoo>
