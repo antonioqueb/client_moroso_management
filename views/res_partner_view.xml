@@ -32,17 +32,35 @@
         </field>
     </record>
 
-    <!-- Nueva vista árbol específica para gestionar clientes sin permitir crear -->
-    <record id="view_partner_tree_morosos" model="ir.ui.view">
-        <field name="name">res.partner.tree.morosos</field>
-        <field name="model">res.partner</field>
-        <field name="arch" type="xml">
-            <tree create="false" edit="true" delete="false">
-                <field name="name"/>
-                <field name="moroso"/>
-                <!-- Podemos mostrar 'active' de forma invisible si se quiere depurar -->
-                <field name="active" invisible="1"/>
-            </tree>
-        </field>
-    </record>
+<!-- Nueva vista árbol específica para gestionar clientes morosos sin permitir crear -->
+<record id="view_partner_tree_morosos" model="ir.ui.view">
+    <field name="name">res.partner.tree.morosos</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+        <tree create="false" edit="true" delete="false" default_order="name">
+            <field name="name"/>
+            <field name="moroso"/>
+            <!-- Se oculta 'active' pero solo para usuarios sin permisos técnicos -->
+            <field name="active" attrs="{'invisible': [('moroso', '=', True)]}"/>
+        </tree>
+    </field>
+</record>
+
+<!-- Acción para mostrar solo clientes morosos -->
+<record id="action_partner_morosos" model="ir.actions.act_window">
+    <field name="name">Clientes Morosos</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_partner_tree_morosos"/>
+    <field name="domain">[('moroso', '=', True)]</field>
+    <field name="context">{}</field>
+</record>
+
+<!-- Opción de menú para acceder a la vista -->
+<menuitem id="menu_partner_morosos"
+          name="Clientes Morosos"
+          parent="base.menu_partner"
+          action="action_partner_morosos"
+          groups="base.group_user"/>
+
 </odoo>
