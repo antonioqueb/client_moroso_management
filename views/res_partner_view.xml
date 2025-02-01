@@ -39,11 +39,9 @@
         <field name="arch" type="xml">
             <tree create="false" edit="true" delete="false">
                 <field name="name"/>
+                <field name="moroso"/>
                 <field name="company_registry"/>
                 <field name="vat"/>
-                <field name="moroso"/>
-                <!-- Podemos mostrar 'active' de forma invisible si se quiere depurar -->
-                <field name="active" invisible="1"/>
             </tree>
         </field>
     </record>
