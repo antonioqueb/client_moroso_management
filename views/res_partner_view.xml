@@ -9,7 +9,6 @@
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="moroso" groups="client_moroso_management.group_moroso_manager"/>
             </xpath>
-
             <!-- Agregamos un grupo para los botones de marcar/desmarcar moroso -->
             <xpath expr="//sheet" position="inside">
                 <group string="Moroso Actions" groups="client_moroso_management.group_moroso_manager">
@@ -43,17 +42,17 @@
         </field>
     </record>
 
-    <!-- Vista de búsqueda con filtro predeterminado para contactos morosos -->
-    <record id="view_partner_search_morosos" model="ir.ui.view">
-        <field name="name">res.partner.search.morosos</field>
+    <!-- Heredamos la vista de búsqueda de res.partner para agregar el filtro predeterminado de morosos -->
+    <record id="view_partner_search_inherit_morosos" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit.morosos</field>
         <field name="model">res.partner</field>
+        <!-- Asegúrate de que este id de vista corresponda al search view base de res.partner -->
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
-            <search>
-                <!-- Campo de búsqueda para completar la estructura del search view -->
-                <field name="name"/>
+            <xpath expr="//search" position="inside">
                 <!-- Filtro predeterminado que muestra solo contactos morosos -->
                 <filter string="Morosos" name="morosos" domain="[('moroso','=',True)]" default="1"/>
-            </search>
+            </xpath>
         </field>
     </record>
 </odoo>
