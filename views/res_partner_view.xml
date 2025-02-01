@@ -39,6 +39,8 @@
         <field name="arch" type="xml">
             <tree create="false" edit="true" delete="false">
                 <field name="name"/>
+                <field name="company_registry"/>
+                <field name="vat"/>
                 <field name="moroso"/>
                 <!-- Podemos mostrar 'active' de forma invisible si se quiere depurar -->
                 <field name="active" invisible="1"/>
@@ -46,17 +48,36 @@
         </field>
     </record>
 
-    <!-- Acción para mostrar únicamente clientes morosos -->
+    <record id="view_partner_kanban_morosos" model="ir.ui.view">
+        <field name="name">res.partner.kanban.morosos</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global">
+                            <div class="oe_kanban_content">
+                                <strong t-esc="record.name.value"/>
+                                <div>
+                                    <span class="badge badge-danger" t-if="record.moroso.raw_value">Moroso</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
     <record id="action_view_partner_tree_morosos" model="ir.actions.act_window">
         <field name="name">Clientes Morosos</field>
         <field name="res_model">res.partner</field>
-        <!-- Modo de vista: primero árbol, luego formulario -->
-        <field name="view_mode">tree,form</field>
-        <!-- Referencia a la vista de árbol definida antes -->
+        <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_partner_tree_morosos"/>
-        <!-- Dominio para filtrar solamente los registros donde 'moroso' es True -->
         <field name="domain">[('moroso', '=', True)]</field>
     </record>
+
 
    
 </odoo>
