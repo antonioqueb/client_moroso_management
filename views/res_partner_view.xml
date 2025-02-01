@@ -46,11 +46,11 @@
     <record id="view_partner_search_inherit_morosos" model="ir.ui.view">
         <field name="name">res.partner.search.inherit.morosos</field>
         <field name="model">res.partner</field>
-        <!-- Asegúrate de que este id de vista corresponda al search view base de res.partner -->
+        <!-- Asegúrate de que este id haga referencia al search view correcto en tu instalación -->
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
-            <xpath expr="//search" position="inside">
-                <!-- Filtro predeterminado que muestra solo contactos morosos -->
+            <!-- Utilizamos "." para insertar en el nodo raíz (<search>) -->
+            <xpath expr="." position="inside">
                 <filter string="Morosos" name="morosos" domain="[('moroso','=',True)]" default="1"/>
             </xpath>
         </field>
