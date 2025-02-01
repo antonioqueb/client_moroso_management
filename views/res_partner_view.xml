@@ -5,7 +5,6 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-
             <!-- Insertamos el campo 'moroso' justo después de 'category_id' -->
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="moroso" groups="client_moroso_management.group_moroso_manager"/>
@@ -20,7 +19,6 @@
                             type="object"
                             class="oe_highlight"
                             modifiers="{'invisible': [('moroso','=',True)]}"/>
-
                     <!-- Botón: Quitar Moroso -->
                     <button name="action_unmark_moroso"
                             string="Quitar Moroso"
@@ -28,7 +26,6 @@
                             modifiers="{'invisible': [('moroso','=',False)]}"/>
                 </group>
             </xpath>
-
         </field>
     </record>
 
@@ -40,7 +37,7 @@
             <tree create="false" edit="true" delete="false">
                 <field name="name"/>
                 <field name="moroso"/>
-                <!-- Podemos mostrar 'active' de forma invisible si se quiere depurar -->
+                <!-- Campo 'active' para depuración, se muestra de forma invisible -->
                 <field name="active" invisible="1"/>
             </tree>
         </field>
@@ -52,6 +49,8 @@
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <search>
+                <!-- Campo de búsqueda para completar la estructura del search view -->
+                <field name="name"/>
                 <!-- Filtro predeterminado que muestra solo contactos morosos -->
                 <filter string="Morosos" name="morosos" domain="[('moroso','=',True)]" default="1"/>
             </search>
