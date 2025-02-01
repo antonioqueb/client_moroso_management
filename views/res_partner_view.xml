@@ -32,7 +32,7 @@
         </field>
     </record>
 
-    <!-- Nueva vista árbol específica para gestionar clientes sin permitir crear -->
+    <!-- Nueva vista árbol para clientes; se permite editar pero no crear/eliminar -->
     <record id="view_partner_tree_morosos" model="ir.ui.view">
         <field name="name">res.partner.tree.morosos</field>
         <field name="model">res.partner</field>
@@ -45,4 +45,22 @@
             </tree>
         </field>
     </record>
+
+    <!-- Acción para mostrar únicamente clientes morosos -->
+    <record id="action_view_partner_tree_morosos" model="ir.actions.act_window">
+        <field name="name">Clientes Morosos</field>
+        <field name="res_model">res.partner</field>
+        <!-- Modo de vista: primero árbol, luego formulario -->
+        <field name="view_mode">tree,form</field>
+        <!-- Referencia a la vista de árbol definida antes -->
+        <field name="view_id" ref="view_partner_tree_morosos"/>
+        <!-- Dominio para filtrar solamente los registros donde 'moroso' es True -->
+        <field name="domain">[('moroso', '=', True)]</field>
+    </record>
+
+    <!-- Menú opcional para acceder a la acción de morosos (ajusta parent según tu jerarquía) -->
+    <menuitem id="menu_partner_morosos"
+              name="Clientes Morosos"
+              parent="base.menu_partners"
+              action="action_view_partner_tree_morosos"/>
 </odoo>
