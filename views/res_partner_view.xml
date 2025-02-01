@@ -42,15 +42,15 @@
         </field>
     </record>
 
-    <!-- Heredamos la vista de búsqueda de res.partner para agregar el filtro predeterminado de morosos -->
+    <!-- Heredamos la vista de búsqueda de res.partner para agregar el filtro predeterminado -->
     <record id="view_partner_search_inherit_morosos" model="ir.ui.view">
         <field name="name">res.partner.search.inherit.morosos</field>
         <field name="model">res.partner</field>
-        <!-- Asegúrate de que este id haga referencia al search view correcto en tu instalación -->
+        <!-- Verifica que este id corresponda a la vista de búsqueda base en tu instalación -->
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
-            <!-- Utilizamos "." para insertar en el nodo raíz (<search>) -->
-            <xpath expr="." position="inside">
+            <!-- Usamos la ruta absoluta para insertar en el nodo raíz (<search>) -->
+            <xpath expr="/search" position="inside">
                 <filter string="Morosos" name="morosos" domain="[('moroso','=',True)]" default="1"/>
             </xpath>
         </field>
