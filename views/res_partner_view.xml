@@ -31,37 +31,35 @@
 
         </field>
     </record>
+    <!-- Nueva vista árbol específica para gestionar clientes morosos sin permitir crear -->
+    <record id="view_partner_tree_morosos" model="ir.ui.view">
+        <field name="name">res.partner.tree.morosos</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="true" delete="false" default_order="name">
+                <field name="name"/>
+                <field name="moroso"/>
+                <!-- 'active' se mantiene pero sin attrs para compatibilidad con Odoo 17 -->
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
 
-<!-- Nueva vista árbol específica para gestionar clientes morosos sin permitir crear -->
-<record id="view_partner_tree_morosos" model="ir.ui.view">
-    <field name="name">res.partner.tree.morosos</field>
-    <field name="model">res.partner</field>
-    <field name="arch" type="xml">
-        <tree create="false" edit="true" delete="false" default_order="name">
-            <field name="name"/>
-            <field name="moroso"/>
-            <!-- 'active' se mantiene pero sin attrs -->
-            <field name="active" invisible="1"/>
-        </tree>
-    </field>
-</record>
+    <!-- Acción para mostrar solo clientes morosos -->
+    <record id="action_partner_morosos" model="ir.actions.act_window">
+        <field name="name">Clientes Morosos</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_partner_tree_morosos"/>
+        <field name="domain">[('moroso', '=', True)]</field>
+        <field name="context">{}</field>
+    </record>
 
-<!-- Acción para mostrar solo clientes morosos -->
-<record id="action_partner_morosos" model="ir.actions.act_window">
-    <field name="name">Clientes Morosos</field>
-    <field name="res_model">res.partner</field>
-    <field name="view_mode">tree,form</field>
-    <field name="view_id" ref="view_partner_tree_morosos"/>
-    <field name="domain">[('moroso', '=', True)]</field>
-    <field name="context">{}</field>
-</record>
-
-<!-- Opción de menú para acceder a la vista -->
-<menuitem id="menu_partner_morosos"
-          name="Clientes Morosos"
-          parent="base.menu_partner"
-          action="action_partner_morosos"
-          groups="base.group_user"/>
-
+    <!-- Opción de menú para acceder a la vista manteniendo el menú original -->
+    <menuitem id="menu_partner_morosos"
+            name="Clientes Morosos"
+            parent="base.menu_partner"
+            action="action_partner_morosos"
+            groups="base.group_user"/>
 
 </odoo>
