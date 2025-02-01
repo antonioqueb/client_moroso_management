@@ -40,8 +40,8 @@
         <tree create="false" edit="true" delete="false" default_order="name">
             <field name="name"/>
             <field name="moroso"/>
-            <!-- Se oculta 'active' pero solo para usuarios sin permisos técnicos -->
-            <field name="active" attrs="{'invisible': [('moroso', '=', True)]}"/>
+            <!-- 'active' se mantiene pero sin attrs -->
+            <field name="active" invisible="1"/>
         </tree>
     </field>
 </record>
@@ -62,5 +62,6 @@
           parent="base.menu_partner"
           action="action_partner_morosos"
           groups="base.group_user"/>
+
 
 </odoo>
