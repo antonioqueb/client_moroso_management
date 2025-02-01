@@ -16,7 +16,7 @@
                 <group string="Moroso Actions" groups="client_moroso_management.group_moroso_manager">
                     <!-- Botón: Marcar como Moroso -->
                     <button name="action_mark_moroso"
-                            string="Marcar como Moroso"
+                            string="Es Moroso"
                             type="object"
                             class="oe_highlight"
                             modifiers="{'invisible': [('moroso','=',True)]}"/>
