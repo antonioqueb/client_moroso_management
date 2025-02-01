@@ -1,0 +1,8 @@
+<!-- client_moroso_management/security/client_moroso_management_security.xml -->
+<odoo>
+    <record id="group_moroso_manager" model="res.groups">
+        <field name="name">Moroso Manager</field>
+        <field name="category_id" ref="base.module_category_sales_management"/>
+        <field name="comment">Grupo con permisos para marcar y desmarcar clientes morosos</field>
+    </record>
+</odoo>

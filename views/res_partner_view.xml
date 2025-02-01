@@ -1,0 +1,29 @@
+<!-- client_moroso_management/views/res_partner_view.xml -->
+<odoo>
+    <record id="view_partner_form_moroso" model="ir.ui.view">
+        <field name="name">res.partner.form.moroso</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Insertamos un grupo para el campo "moroso" -->
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="moroso" groups="client_moroso_management.group_moroso_manager"/>
+            </xpath>
+
+            <!-- Botones para marcar/desmarcar moroso -->
+            <xpath expr="//sheet" position="inside">
+                <group string="Moroso Actions" groups="client_moroso_management.group_moroso_manager">
+                    <button name="action_mark_moroso"
+                            string="Marcar como Moroso"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('moroso','=',True)]}"/>
+                    <button name="action_unmark_moroso"
+                            string="Quitar Moroso"
+                            type="object"
+                            attrs="{'invisible': [('moroso','=',False)]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

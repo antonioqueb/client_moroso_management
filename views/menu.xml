@@ -1,0 +1,35 @@
+<!-- client_moroso_management/views/menu.xml -->
+<odoo>
+    <!-- Menú principal (aplicación) -->
+    <record id="client_moroso_management_main_menu" model="ir.ui.menu">
+        <field name="name">Gestión Morosos</field>
+        <field name="sequence">10</field>
+        <field name="icon"/><!-- Para versiones anteriores se usaba 'icon', 
+                                  en Odoo 17 es más común 'web_icon', pero 
+                                  mantenemos icon para compatibilidad con muk_theme -->
+        <field name="web_icon">client_moroso_management,static/description/icon.png</field>
+        <field name="groups_id" eval="[]"/> <!-- Todos los usuarios pueden ver la app; ajústalo según necesites -->
+        <field name="app_id" ref="base.module_category_sales_management"/> 
+        <!-- Lo habitual es dejar 'is_app' o 'app_id' en true, 
+             pero en Odoo 17, al tener 'application': True en manifest, 
+             se comporta como app. 
+             El 'app_id' puede apuntar a una categoría o mantenerse vacía. -->
+    </record>
+
+    <!-- Acción de ventana para visualizar solo los contactos morosos -->
+    <record id="action_morosos_tree" model="ir.actions.act_window">
+        <field name="name">Clientes Morosos</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('moroso','=', True)]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <!-- Submenú que llama a la acción anterior -->
+    <menuitem id="menu_morosos"
+              name="Clientes Morosos"
+              parent="client_moroso_management_main_menu"
+              sequence="10"
+              action="action_morosos_tree"
+              groups="client_moroso_management.group_moroso_manager"/>
+</odoo>
