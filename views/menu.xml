@@ -1,4 +1,3 @@
-<!-- client_moroso_management/views/menu.xml -->
 <odoo>
     <!-- Menú principal (aplicación) -->
     <record id="client_moroso_management_main_menu" model="ir.ui.menu">

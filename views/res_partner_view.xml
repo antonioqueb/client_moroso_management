@@ -4,25 +4,34 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <!-- Insertamos un grupo para el campo "moroso" -->
+
+            <!-- Insertamos el campo 'moroso' justo después de 'category_id' -->
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="moroso" groups="client_moroso_management.group_moroso_manager"/>
             </xpath>
 
-            <!-- Botones para marcar/desmarcar moroso -->
+            <!-- Agregamos un grupo para los botones de marcar/desmarcar moroso -->
             <xpath expr="//sheet" position="inside">
                 <group string="Moroso Actions" groups="client_moroso_management.group_moroso_manager">
+
+                    <!-- Botón: Marcar como Moroso 
+                         Reemplazamos attrs por modifiers -->
                     <button name="action_mark_moroso"
                             string="Marcar como Moroso"
                             type="object"
                             class="oe_highlight"
-                            attrs="{'invisible': [('moroso','=',True)]}"/>
+                            modifiers="{'invisible': [('moroso','=',True)]}"/>
+
+                    <!-- Botón: Quitar Moroso
+                         También cambiamos a modifiers -->
                     <button name="action_unmark_moroso"
                             string="Quitar Moroso"
                             type="object"
-                            attrs="{'invisible': [('moroso','=',False)]}"/>
+                            modifiers="{'invisible': [('moroso','=',False)]}"/>
+                            
                 </group>
             </xpath>
+
         </field>
     </record>
 </odoo>
