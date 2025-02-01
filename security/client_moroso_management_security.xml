@@ -1,8 +1,15 @@
-<!-- client_moroso_management/security/client_moroso_management_security.xml -->
 <odoo>
+    <!-- Nueva categoría para la gestión de morosos -->
+    <record id="module_category_moroso" model="ir.module.category">
+        <field name="name">Clientes Morosos</field>
+        <field name="description">Categoría para grupos relacionados con la gestión de morosos</field>
+        <field name="sequence">100</field>
+    </record>
+
+    <!-- Grupo específico para manejar acción de Moroso -->
     <record id="group_moroso_manager" model="res.groups">
         <field name="name">Moroso Manager</field>
-        <field name="category_id" ref="base.module_category_sales"/>
+        <field name="category_id" ref="client_moroso_management.module_category_moroso"/>
         <field name="comment">Grupo con permisos para marcar y desmarcar clientes morosos</field>
     </record>
 </odoo>
