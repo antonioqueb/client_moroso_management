@@ -58,9 +58,5 @@
         <field name="domain">[('moroso', '=', True)]</field>
     </record>
 
-    <!-- Menú opcional para acceder a la acción de morosos (ajusta parent según tu jerarquía) -->
-    <menuitem id="menu_partner_morosos"
-              name="Clientes Morosos"
-              parent="base.menu_partners"
-              action="action_view_partner_tree_morosos"/>
+   
 </odoo>
