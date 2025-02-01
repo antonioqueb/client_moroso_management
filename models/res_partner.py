@@ -11,31 +11,53 @@ class ResPartner(models.Model):
 
     def action_mark_moroso(self):
         """
-        Marca al partner como moroso y lo archiva (active=False).
-        Solo debe ejecutarse si el usuario tiene el grupo apropiado.
+        Marca al partner como moroso, lo archiva y deja un mensaje en el chatter.
         """
         for record in self:
-            record.moroso = True
-            record.active = False
+            if not record.moroso:  # Evita registrar si ya está moroso
+                record.moroso = True
+                record.active = False
+                record.message_post(
+                    body=_("El contacto ha sido marcado como moroso por %s el %s.") % 
+                         (self.env.user.name, fields.Datetime.now()),
+                    subtype_xmlid="mail.mt_note"
+                )
 
     def action_unmark_moroso(self):
         """
-        Quita la marca de moroso y reactiva (active=True) al partner.
+        Quita la marca de moroso, reactiva el partner y deja un mensaje en el chatter.
         """
         for record in self:
-            record.moroso = False
-            record.active = True
+            if record.moroso:  # Evita registrar si ya no es moroso
+                record.moroso = False
+                record.active = True
+                record.message_post(
+                    body=_("La morosidad ha sido levantada por %s el %s.") % 
+                         (self.env.user.name, fields.Datetime.now()),
+                    subtype_xmlid="mail.mt_note"
+                )
 
     def write(self, vals):
         """
         Sobrescribimos write para que, si se modifica 'moroso' desde
-        la vista en árbol, se archive o reactive automáticamente.
+        la vista en árbol, se archive o reactive automáticamente
+        y se registre en el chatter.
         """
         res = super(ResPartner, self).write(vals)
         if 'moroso' in vals:
             for rec in self:
                 if rec.moroso:
                     rec.active = False
+                    rec.message_post(
+                        body=_("El contacto ha sido marcado como moroso por %s el %s.") % 
+                             (self.env.user.name, fields.Datetime.now()),
+                        subtype_xmlid="mail.mt_note"
+                    )
                 else:
                     rec.active = True
+                    rec.message_post(
+                        body=_("La morosidad ha sido levantada por %s el %s.") % 
+                             (self.env.user.name, fields.Datetime.now()),
+                        subtype_xmlid="mail.mt_note"
+                    )
         return res
