@@ -5,10 +5,12 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
+
             <!-- Insertamos el campo 'moroso' justo después de 'category_id' -->
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="moroso" groups="client_moroso_management.group_moroso_manager"/>
             </xpath>
+
             <!-- Agregamos un grupo para los botones de marcar/desmarcar moroso -->
             <xpath expr="//sheet" position="inside">
                 <group string="Moroso Actions" groups="client_moroso_management.group_moroso_manager">
@@ -18,6 +20,7 @@
                             type="object"
                             class="oe_highlight"
                             modifiers="{'invisible': [('moroso','=',True)]}"/>
+
                     <!-- Botón: Quitar Moroso -->
                     <button name="action_unmark_moroso"
                             string="Quitar Moroso"
@@ -25,6 +28,7 @@
                             modifiers="{'invisible': [('moroso','=',False)]}"/>
                 </group>
             </xpath>
+
         </field>
     </record>
 
@@ -36,23 +40,9 @@
             <tree create="false" edit="true" delete="false">
                 <field name="name"/>
                 <field name="moroso"/>
-                <!-- Campo 'active' para depuración, se muestra de forma invisible -->
+                <!-- Podemos mostrar 'active' de forma invisible si se quiere depurar -->
                 <field name="active" invisible="1"/>
             </tree>
-        </field>
-    </record>
-
-    <!-- Heredamos la vista de búsqueda de res.partner para agregar el filtro predeterminado -->
-    <record id="view_partner_search_inherit_morosos" model="ir.ui.view">
-        <field name="name">res.partner.search.inherit.morosos</field>
-        <field name="model">res.partner</field>
-        <!-- Verifica que este id corresponda a la vista de búsqueda base en tu instalación -->
-        <field name="inherit_id" ref="base.view_res_partner_filter"/>
-        <field name="arch" type="xml">
-            <!-- Usamos la ruta absoluta para insertar en el nodo raíz (<search>) -->
-            <xpath expr="/search" position="inside">
-                <filter string="Morosos" name="morosos" domain="[('moroso','=',True)]" default="1"/>
-            </xpath>
         </field>
     </record>
 </odoo>
