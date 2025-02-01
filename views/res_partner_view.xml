@@ -1,4 +1,5 @@
 <odoo>
+    <!-- Vista heredada de formulario para mostrar campo y botones de moroso -->
     <record id="view_partner_form_moroso" model="ir.ui.view">
         <field name="name">res.partner.form.moroso</field>
         <field name="model">res.partner</field>
@@ -13,25 +14,35 @@
             <!-- Agregamos un grupo para los botones de marcar/desmarcar moroso -->
             <xpath expr="//sheet" position="inside">
                 <group string="Moroso Actions" groups="client_moroso_management.group_moroso_manager">
-
-                    <!-- Botón: Marcar como Moroso 
-                         Reemplazamos attrs por modifiers -->
+                    <!-- Botón: Marcar como Moroso -->
                     <button name="action_mark_moroso"
                             string="Marcar como Moroso"
                             type="object"
                             class="oe_highlight"
                             modifiers="{'invisible': [('moroso','=',True)]}"/>
 
-                    <!-- Botón: Quitar Moroso
-                         También cambiamos a modifiers -->
+                    <!-- Botón: Quitar Moroso -->
                     <button name="action_unmark_moroso"
                             string="Quitar Moroso"
                             type="object"
                             modifiers="{'invisible': [('moroso','=',False)]}"/>
-                            
                 </group>
             </xpath>
 
+        </field>
+    </record>
+
+    <!-- Nueva vista árbol específica para gestionar clientes sin permitir crear -->
+    <record id="view_partner_tree_morosos" model="ir.ui.view">
+        <field name="name">res.partner.tree.morosos</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="true" delete="false">
+                <field name="name"/>
+                <field name="moroso"/>
+                <!-- Podemos mostrar 'active' de forma invisible si se quiere depurar -->
+                <field name="active" invisible="1"/>
+            </tree>
         </field>
     </record>
 </odoo>

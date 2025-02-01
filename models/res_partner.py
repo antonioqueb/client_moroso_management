@@ -1,5 +1,4 @@
-# client_moroso_management/models/res_partner.py
-
+# -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
 
 class ResPartner(models.Model):
@@ -26,3 +25,17 @@ class ResPartner(models.Model):
         for record in self:
             record.moroso = False
             record.active = True
+
+    def write(self, vals):
+        """
+        Sobrescribimos write para que, si se modifica 'moroso' desde
+        la vista en árbol, se archive o reactive automáticamente.
+        """
+        res = super(ResPartner, self).write(vals)
+        if 'moroso' in vals:
+            for rec in self:
+                if rec.moroso:
+                    rec.active = False
+                else:
+                    rec.active = True
+        return res
