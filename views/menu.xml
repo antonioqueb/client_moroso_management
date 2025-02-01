@@ -4,12 +4,16 @@
     <record id="client_moroso_management_main_menu" model="ir.ui.menu">
         <field name="name">Gestión Morosos</field>
         <field name="sequence">10</field>
-        <field name="icon"/>
+        <!-- QUITAMOS la línea con 'icon' porque no existe en Odoo 17 -->
+        
+        <!-- Usamos solo web_icon para mostrar el ícono de la app -->
         <field name="web_icon">client_moroso_management,static/description/icon.png</field>
+        
         <field name="groups_id" eval="[]"/>
-        <!-- Se quita la referencia a base.module_category_sales_management,
-             y no se obliga a usar nuestra categoría,
-             porque 'application=True' en el manifest ya crea la App. -->
+        <!-- 
+            Sin 'app_id' porque, con 'application=True' en __manifest__.py,
+            Odoo ya lo tratará como aplicación.
+        -->
     </record>
 
     <!-- Acción de ventana para visualizar solo los contactos morosos -->
