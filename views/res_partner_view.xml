@@ -82,5 +82,4 @@
         <field name="view_id" ref="view_partner_tree_morosos"/>
         <field name="domain">[('moroso', '=', True)]</field>
     </record>
-
 </odoo>

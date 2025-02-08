@@ -1,8 +1,8 @@
 <odoo>
     <report
-        id="action_report_morosos_pdf"
-        string="Reporte de Empleados Morosos"
+        id="client_moroso_management.action_report_morosos_pdf"
         model="res.partner"
+        string="Reporte de Empleados Morosos"
         report_type="qweb-pdf"
         name="client_moroso_management.report_morosos_template"
         file="client_moroso_management.report_morosos_template"
