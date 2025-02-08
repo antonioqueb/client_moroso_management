@@ -16,8 +16,6 @@
     'data': [
     'security/client_moroso_management_security.xml',
     'security/ir.model.access.csv',
-    'report/report_morosos.xml',
-    'report/report_morosos_template.xml',
     'views/res_partner_view.xml',
     'views/menu.xml',
 ],

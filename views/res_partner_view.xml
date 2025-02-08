@@ -26,14 +26,8 @@
                             string="Quitar Moroso"
                             type="object"
                             modifiers="{'invisible': [('moroso','=',False)]}"/>
-                    
-                    <!-- Botón para imprimir PDF -->
-                    <button name="%(client_moroso_management.action_report_morosos_pdf)d"
-                            string="Imprimir PDF"
-                            type="action"
-                            class="oe_highlight"
-                            context="{'active_id': active_id, 'active_model': 'res.partner'}"
-                            groups="client_moroso_management.group_moroso_manager"/>
+
+                    <!-- Se elimina el botón para imprimir PDF, ya no lo necesitamos -->
                 </group>
             </xpath>
 
@@ -65,7 +59,8 @@
                             <div class="oe_kanban_content">
                                 <strong t-esc="record.name.value"/>
                                 <div>
-                                    <span class="badge badge-danger" t-if="record.moroso.raw_value">Moroso</span>
+                                    <span class="badge badge-danger"
+                                          t-if="record.moroso.raw_value">Moroso</span>
                                 </div>
                             </div>
                         </div>
