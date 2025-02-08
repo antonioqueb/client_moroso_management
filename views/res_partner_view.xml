@@ -27,7 +27,7 @@
                             type="object"
                             modifiers="{'invisible': [('moroso','=',False)]}"/>
 
-                    <!-- Se elimina el botón para imprimir PDF, ya no lo necesitamos -->
+                    <!-- Eliminamos el botón que invocaba el reporte PDF -->
                 </group>
             </xpath>
 
@@ -59,8 +59,7 @@
                             <div class="oe_kanban_content">
                                 <strong t-esc="record.name.value"/>
                                 <div>
-                                    <span class="badge badge-danger"
-                                          t-if="record.moroso.raw_value">Moroso</span>
+                                    <span class="badge badge-danger" t-if="record.moroso.raw_value">Moroso</span>
                                 </div>
                             </div>
                         </div>
