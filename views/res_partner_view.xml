@@ -26,6 +26,14 @@
                             string="Quitar Moroso"
                             type="object"
                             modifiers="{'invisible': [('moroso','=',False)]}"/>
+                    
+                    <!-- Botón para imprimir PDF -->
+                    <button name="%(client_moroso_management.action_report_morosos_pdf)d"
+                            string="Imprimir PDF"
+                            type="action"
+                            class="oe_highlight"
+                            context="{'active_id': active_id, 'active_model': 'res.partner'}"
+                            groups="client_moroso_management.group_moroso_manager"/>
                 </group>
             </xpath>
 
@@ -67,7 +75,6 @@
         </field>
     </record>
 
-
     <record id="action_view_partner_tree_morosos" model="ir.actions.act_window">
         <field name="name">Clientes Morosos</field>
         <field name="res_model">res.partner</field>
@@ -76,6 +83,4 @@
         <field name="domain">[('moroso', '=', True)]</field>
     </record>
 
-
-   
 </odoo>

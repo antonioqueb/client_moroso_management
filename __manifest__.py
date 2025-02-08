@@ -18,6 +18,8 @@
         'security/ir.model.access.csv',
         'views/res_partner_view.xml',
         'views/menu.xml',
+        'report/report_morosos.xml',
+        'report/report_morosos_template.xml',
     ],
     'images': ['static/description/icon.png'],
     'installable': True,

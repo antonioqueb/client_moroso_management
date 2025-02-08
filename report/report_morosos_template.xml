@@ -1,0 +1,24 @@
+<odoo>
+    <template id="report_morosos_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <h2>Reporte de Empleados Morosos</h2>
+                    <p>
+                        <strong>Nombre: </strong><span t-esc="o.name"/>
+                    </p>
+                    <p>
+                        <strong>Moroso: </strong>
+                        <span t-esc="('Sí' if o.moroso else 'No')"/>
+                    </p>
+                    <p>
+                        <strong>VAT (NIT): </strong><span t-esc="o.vat"/>
+                    </p>
+                    <p>
+                        <strong>Registro: </strong><span t-esc="o.company_registry"/>
+                    </p>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
