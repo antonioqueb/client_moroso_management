@@ -1,26 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Menú principal (aplicación) -->
     <record id="client_moroso_management_main_menu" model="ir.ui.menu">
         <field name="name">Gestión Morosos</field>
         <field name="sequence">10</field>
-        <!-- Ícono de la app -->
         <field name="web_icon">client_moroso_management,static/description/icon.png</field>
-        <field name="groups_id" eval="[]"/>
     </record>
 
-    <!-- Acción de ventana para visualizar los clientes existentes (solo customer_rank>0) -->
     <record id="action_morosos_tree" model="ir.actions.act_window">
         <field name="name">Clientes Morosos</field>
         <field name="res_model">res.partner</field>
-        <!-- Refiere a la nueva vista árbol (donde no se crean registros) -->
-        <field name="view_id" ref="client_moroso_management.view_partner_tree_morosos"/>
+        <field name="view_id" ref="view_partner_tree_morosos"/>
         <field name="view_mode">tree,form</field>
-        <!-- Filtramos a clientes (customer_rank>0) y permitimos ver activos e inactivos -->
-        <field name="domain">[('customer_rank','>', 0)]</field>
-        <field name="context">{'active_test': False}</field>
+        <field name="domain">[('customer_rank', '>', 0)]</field>
     </record>
 
-    <!-- Submenú que llama a la acción anterior -->
     <menuitem id="menu_morosos"
               name="Clientes Morosos"
               parent="client_moroso_management_main_menu"

@@ -1,47 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Vista heredada de formulario para mostrar campo y botones de moroso -->
     <record id="view_partner_form_moroso" model="ir.ui.view">
         <field name="name">res.partner.form.moroso</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-
-            <!-- Insertamos el campo 'moroso' justo después de 'category_id' -->
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="moroso" groups="client_moroso_management.group_moroso_manager"/>
             </xpath>
 
-            <!-- Agregamos un grupo para los botones de marcar/desmarcar moroso -->
             <xpath expr="//sheet" position="inside">
-                <group string="Moroso Actions" groups="client_moroso_management.group_moroso_manager">
-                    <!-- Botón: Marcar como Moroso -->
+                <group string="Acciones Moroso" groups="client_moroso_management.group_moroso_manager">
                     <button name="action_mark_moroso"
-                            string="Moroso"
+                            string="Marcar Moroso"
                             type="object"
-                            class="oe_highlight"
-                            modifiers="{'invisible': [('moroso','=',True)]}"/>
-
-                    <!-- Botón: Quitar Moroso -->
+                            class="btn-danger"
+                            invisible="moroso"/>
                     <button name="action_unmark_moroso"
                             string="Quitar Moroso"
                             type="object"
-                            modifiers="{'invisible': [('moroso','=',False)]}"/>
-
-                    <!-- Eliminamos el botón que invocaba el reporte PDF -->
+                            class="btn-success"
+                            invisible="not moroso"/>
                 </group>
             </xpath>
-
         </field>
     </record>
 
-    <!-- Nueva vista árbol para clientes; se permite editar pero no crear/eliminar -->
     <record id="view_partner_tree_morosos" model="ir.ui.view">
         <field name="name">res.partner.tree.morosos</field>
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <tree create="false" edit="true" delete="false">
                 <field name="name"/>
-                <field name="moroso"/>
+                <field name="moroso" widget="boolean_toggle"/>
                 <field name="company_registry"/>
                 <field name="vat"/>
             </tree>
@@ -52,28 +43,14 @@
         <field name="name">res.partner.kanban.morosos</field>
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_view">
+            <kanban>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global">
-                            <div class="oe_kanban_content">
-                                <strong t-esc="record.name.value"/>
-                                <div>
-                                    <span class="badge badge-danger" t-if="record.moroso.raw_value">Moroso</span>
-                                </div>
-                            </div>
-                        </div>
+                    <t t-name="card">
+                        <strong><field name="name"/></strong>
+                        <field name="moroso" widget="boolean" t-if="record.moroso.raw_value"/>
                     </t>
                 </templates>
             </kanban>
         </field>
-    </record>
-
-    <record id="action_view_partner_tree_morosos" model="ir.actions.act_window">
-        <field name="name">Clientes Morosos</field>
-        <field name="res_model">res.partner</field>
-        <field name="view_mode">kanban,tree,form</field>
-        <field name="view_id" ref="view_partner_tree_morosos"/>
-        <field name="domain">[('moroso', '=', True)]</field>
     </record>
 </odoo>
