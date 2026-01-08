@@ -10,6 +10,7 @@
         'base',
         'contacts',
         'sale_management',
+        'custom_partner_search',  # <-- dependencia agregada
     ],
     'data': [
         'security/client_moroso_management_security.xml',
