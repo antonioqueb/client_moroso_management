@@ -30,12 +30,12 @@
         <field name="name">res.partner.tree.morosos</field>
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
-            <tree create="false" edit="true" delete="false">
+            <list create="false" edit="true" delete="false">
                 <field name="name"/>
                 <field name="moroso" widget="boolean_toggle"/>
                 <field name="company_registry"/>
                 <field name="vat"/>
-            </tree>
+            </list>
         </field>
     </record>
 
